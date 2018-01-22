@@ -1,8 +1,8 @@
 # Frodo
 
-Gandalf... gemified
-
 ![frodo](https://uproxx.files.wordpress.com/2015/10/frodo.jpg?quality=100&w=650&h=400)
+
+Gandalf... gemified
 
 ## Installation
 
