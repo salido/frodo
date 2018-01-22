@@ -1,4 +1,6 @@
-# Frodo - Gandalf... Gemified
+# Frodo
+
+Gandalf... gemified
 
 ![frodo](https://uproxx.files.wordpress.com/2015/10/frodo.jpg?quality=100&w=650&h=400)
 
