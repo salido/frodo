@@ -1,4 +1,4 @@
-describe Frodo::Gandalf::User do
+describe Frodo::User do
   include_context 'shared context'
 
   context '#gandalf_user' do

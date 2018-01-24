@@ -2,11 +2,11 @@
 
 $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
-require File.expand_path('../lib/frodo/gandalf/version', __FILE__)
+require File.expand_path('../lib/frodo/version', __FILE__)
 
 Gem::Specification.new do |spec|
   spec.name          = 'frodo'
-  spec.version       = Frodo::Gandalf::VERSION
+  spec.version       = Frodo::VERSION
   spec.authors       = ['Ari Perez']
   spec.email         = ['aris.a.perez@gmail.com']
 

@@ -1,4 +1,4 @@
-describe Frodo::Gandalf::Acl do
+describe Frodo::Acl do
   include_context 'shared context'
 
   context '#acl' do
@@ -9,7 +9,7 @@ describe Frodo::Gandalf::Acl do
         let(:body) { Errno::ECONNREFUSED.new('boo') }
 
         it 'returns a BadUrlError' do
-          expect { subject }.to raise_error(Frodo::Gandalf::Errors::BadUrlError)
+          expect { subject }.to raise_error(Frodo::Errors::BadUrlError)
         end
       end
 
@@ -17,7 +17,7 @@ describe Frodo::Gandalf::Acl do
         let(:body) { 'stupidbody: , bleh' }
 
         it 'returns a JsonError' do
-          expect { subject }.to raise_error(Frodo::Gandalf::Errors::JsonError)
+          expect { subject }.to raise_error(Frodo::Errors::JsonError)
         end
       end
 
@@ -26,7 +26,7 @@ describe Frodo::Gandalf::Acl do
         let(:body) { JSON.unparse('error' => 'The access token expired') }
 
         it 'returns a TokenExpiredError' do
-          expect { subject }.to raise_error(Frodo::Gandalf::Errors::TokenExpiredError)
+          expect { subject }.to raise_error(Frodo::Errors::TokenExpiredError)
         end
       end
 
@@ -35,7 +35,7 @@ describe Frodo::Gandalf::Acl do
         let(:body) { JSON.unparse('error' => 'The access token expired') }
 
         it 'returns an AclError' do
-          expect { subject }.to raise_error(Frodo::Gandalf::Errors::AclError)
+          expect { subject }.to raise_error(Frodo::Errors::AclError)
         end
       end
 
@@ -43,7 +43,7 @@ describe Frodo::Gandalf::Acl do
         let(:token) { '' }
 
         it 'returns a MissingTokenError' do
-          expect { subject }.to raise_error(Frodo::Gandalf::Errors::MissingTokenError)
+          expect { subject }.to raise_error(Frodo::Errors::MissingTokenError)
         end
       end
     end
