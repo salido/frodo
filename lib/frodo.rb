@@ -1,5 +1,6 @@
-require "frodo/version"
+require 'grape'
+require 'httparty'
+require 'frodo/gandalf'
 
 module Frodo
-  # Your code goes here...
 end

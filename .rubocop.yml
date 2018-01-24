@@ -1,0 +1,32 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'Guardfile'
+
+Style/FileName:
+  Exclude:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'grape-entity.gemspec'
+    - 'lib/grape-jsonapi_entity.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/MultilineIfModifier:
+  Enabled: false
+
+Style/RaiseArgs:
+  Enabled: false
+
+Lint/UnneededDisable:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*'
