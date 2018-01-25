@@ -9,58 +9,12 @@ module Frodo
         @privileges = frodo_user.privileges.freeze
       end
 
-      def index?
-        false
-      end
-
-      def show?
-        # scope.where(id: record.id).exists?
-        false
-      end
-
-      def create?
-        false
-      end
-
-      def new?
-        create?
-      end
-
-      def update?
-        false
-      end
-
-      def edit?
-        update?
-      end
-
-      def destroy?
-        false
-      end
-
       private
 
       attr_reader :frodo_user, :record, :privileges
 
-      def scope
-        Pundit.policy_scope!(frodo_user, record.class)
-      end
-
       def client_application_name
         @client_application_name ||= frodo_user.name
-      end
-
-      class Scope
-        attr_reader :frodo_user, :scope
-
-        def initialize(frodo_user, scope)
-          @frodo_user = frodo_user
-          @scope = scope
-        end
-
-        def resolve
-          scope
-        end
       end
 
       # rubocop:disable Naming/PredicateName

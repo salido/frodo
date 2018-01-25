@@ -23,14 +23,6 @@ describe ApplicationPolicyTester do
   describe 'when frodo_user is a user' do
     let(:frodo_user) { user }
 
-    context '#defaults' do
-      it "shouldn't allow standard actions" do
-        %i[index show create new update edit destroy].each do |action|
-          expect(subject.send("#{action}?")).to eq(false)
-        end
-      end
-    end
-
     context '#owner' do
       it "shouldn't have an owner" do
         expect(subject.owner?).to eq(false)
@@ -116,14 +108,6 @@ describe ApplicationPolicyTester do
 
   describe 'when frodo_user is an client application' do
     let(:frodo_user) { client_application }
-
-    context '#defaults' do
-      it "shouldn't allow standard actions" do
-        %i[index show create new update edit destroy].each do |action|
-          expect(subject.send("#{action}?")).to eq(false)
-        end
-      end
-    end
 
     context '#owner' do
       it "shouldn't have an owner" do

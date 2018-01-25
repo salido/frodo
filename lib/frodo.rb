@@ -15,6 +15,5 @@ require 'frodo/federate'
 require 'frodo/user'
 require 'frodo/version'
 
-
 module Frodo
 end
