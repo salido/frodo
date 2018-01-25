@@ -12,6 +12,7 @@ require 'frodo/pundit/application_policy'
 require 'frodo/acl'
 require 'frodo/extension'
 require 'frodo/federate'
+require 'frodo/frodo_helpers'
 require 'frodo/user'
 require 'frodo/version'
 
