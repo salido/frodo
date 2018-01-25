@@ -15,7 +15,7 @@ describe Frodo::User do
         let(:gandalf_privileges) { %w[foo Bar BAZ 12345::pow] }
 
         it 'upcases all of the privileges' do
-          expect(subject.privileges).to eq(["FOO", "BAR", "BAZ", "12345::POW"])
+          expect(subject.privileges).to eq(['FOO', 'BAR', 'BAZ', '12345::POW'])
         end
       end
     end
@@ -31,7 +31,7 @@ describe Frodo::User do
         let(:gandalf_privileges) { %w[foo Bar BAZ 12345::pow] }
 
         it 'upcases all of the privileges' do
-          expect(subject.privileges).to eq(["FOO", "BAR", "BAZ", "12345::POW"])
+          expect(subject.privileges).to eq(['FOO', 'BAR', 'BAZ', '12345::POW'])
         end
       end
     end
