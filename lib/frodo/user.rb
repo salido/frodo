@@ -7,8 +7,8 @@ module Frodo
       @instances[acl] ||= new(acl)
     end
 
-    def gandalf_user
-      @gandalf_user ||= begin
+    def frodo_user
+      @frodo_user ||= begin
         return client_application if acl['included'].empty?
         user_object = acl['included'].select { |obj| obj['type'] == 'users' }.first
         user(user_object)
