@@ -21,13 +21,14 @@ module Frodo
       def has_privilege?(privilege, scope = nil)
         return true if dredd?
 
-        scoped_privilege = "#{scope}::#{privilege}"
+        scoped_privilege = "#{scope}::#{privilege}".upcase
 
         raise Frodo::Errors::MissingPrivilegeError
           .new(
             privilege,
             scope
-          ) unless privileges.include?(privilege.to_s) || (scope.present? && privileges.include?(scoped_privilege))
+          ) unless privileges
+                   .include?(privilege.upcase.to_s) || (scope.present? && privileges.include?(scoped_privilege))
         true
       end
       # rubocop:enable Naming/PredicateName

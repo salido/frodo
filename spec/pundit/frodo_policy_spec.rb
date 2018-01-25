@@ -83,6 +83,13 @@ describe FrodoPolicyTester do
             it 'is true' do
               expect(subject.has_privilege?(:foo, '12345')).to be true
             end
+
+            context 'it is case insensitive' do
+              let(:gandalf_privileges) { %w[12345::fOO] }
+              it 'is true' do
+                expect(subject.has_privilege?(:foo, '12345')).to be true
+              end
+            end
           end
         end
 
@@ -99,6 +106,13 @@ describe FrodoPolicyTester do
             let(:gandalf_privileges) { %w[foo] }
             it 'is true' do
               expect(subject.has_privilege?(:foo, '12345')).to be true
+            end
+
+            context 'it is case insensitive' do
+              let(:gandalf_privileges) { %w[12345::foo] }
+              it 'is true' do
+                expect(subject.has_privilege?(:fOO, '12345')).to be true
+              end
             end
           end
         end
@@ -167,6 +181,13 @@ describe FrodoPolicyTester do
             it 'is true' do
               expect(subject.has_privilege?(:foo, '12345')).to be true
             end
+
+            context 'it is case insensitive' do
+              let(:gandalf_privileges) { %w[12345::FOO] }
+              it 'is true' do
+                expect(subject.has_privilege?(:foo, '12345')).to be true
+              end
+            end
           end
         end
 
@@ -183,6 +204,13 @@ describe FrodoPolicyTester do
             let(:gandalf_privileges) { %w[foo] }
             it 'is true' do
               expect(subject.has_privilege?(:foo, '12345')).to be true
+            end
+
+            context 'it is case insensitive' do
+              let(:gandalf_privileges) { %w[FOO] }
+              it 'is true' do
+                expect(subject.has_privilege?(:Foo, '12345')).to be true
+              end
             end
           end
         end
