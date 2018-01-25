@@ -39,7 +39,7 @@ describe ApplicationPolicyTester do
       context 'when user is owner' do
         let(:resource) { OpenStruct.new(resource_owner_id: resource_owner_id) }
 
-        it "should have an owner" do
+        it 'should have an owner' do
           expect(subject.owner?).to eq(true)
         end
       end
@@ -133,7 +133,7 @@ describe ApplicationPolicyTester do
       context 'user cannot be owner' do
         let(:resource) { OpenStruct.new(resource_owner_id: resource_owner_id) }
 
-        it "should not have an owner" do
+        it 'should not have an owner' do
           expect(subject.owner?).to eq(false)
         end
       end
