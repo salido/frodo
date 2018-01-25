@@ -2,7 +2,7 @@
 
 module Frodo
   module Pundit
-    class ApplicationPolicy
+    class FrodoPolicy
       def initialize(frodo_user, record)
         @frodo_user = frodo_user
         @record = record

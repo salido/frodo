@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ApplicationPolicyTester < Frodo::Pundit::ApplicationPolicy
+class FrodoPolicyTester < Frodo::Pundit::FrodoPolicy
   def owner?
     super
   end
@@ -14,7 +14,7 @@ class ApplicationPolicyTester < Frodo::Pundit::ApplicationPolicy
   end
 end
 
-describe ApplicationPolicyTester do
+describe FrodoPolicyTester do
   include_context 'frodo_user'
 
   subject { described_class.new(frodo_user, resource) }
