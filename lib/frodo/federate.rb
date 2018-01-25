@@ -18,7 +18,7 @@ module Frodo
     end
 
     def endpoint_protected?
-      context.options[:route_options][:auth].present?
+      context.options.dig(:route_options, :auth).present?
     end
 
     def resource_name

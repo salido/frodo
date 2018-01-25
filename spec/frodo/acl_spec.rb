@@ -5,28 +5,11 @@ describe Frodo::Acl do
     subject { described_class.new(token).acl }
 
     context 'errors' do
-      xcontext 'when the connection is refused' do # not sure how to test this
-        let(:body) { Errno::ECONNREFUSED.new('boo') }
-
-        it 'returns a BadUrlError' do
-          expect { subject }.to raise_error(Frodo::Errors::BadUrlError)
-        end
-      end
-
       context "when there's a JSON parsing error" do
         let(:body) { 'stupidbody: , bleh' }
 
         it 'returns a JsonError' do
           expect { subject }.to raise_error(Frodo::Errors::JsonError)
-        end
-      end
-
-      xcontext 'when the token is expired' do # not sure how to test this
-        let(:status) { 401 }
-        let(:body) { JSON.unparse('error' => 'The access token expired') }
-
-        it 'returns a TokenExpiredError' do
-          expect { subject }.to raise_error(Frodo::Errors::TokenExpiredError)
         end
       end
 
