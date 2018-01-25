@@ -2,28 +2,11 @@
 
 RSpec.shared_context 'frodo_user' do
   let(:client_application) do
-    @client_application ||= begin
-      OpenStruct.new(
-        'id' => nil,
-        'type' => 'client_applications',
-        'privileges' => client_application_acl.dig('data', 'attributes', 'privileges'),
-        'name' => client_application_acl.dig('data', 'attributes', 'client_application')
-      )
-    end
+    @client_application ||= Frodo::User.new(client_application_acl).frodo_user
   end
 
   let(:user) do
-    @user ||= begin
-      return client_application if user_acl['included'].empty?
-      user_object = user_acl['included'].select { |obj| obj['type'] == 'users' }.first
-      OpenStruct.new(user_object['attributes']
-        .merge(
-          'id' => user_object['id'],
-          'type' => 'users',
-          'privileges' => user_acl.dig('data', 'attributes', 'privileges'),
-          'name' => client_application.name
-        )).freeze
-    end
+    @user ||= Frodo::User.new(user_acl).frodo_user
   end
 
   let(:resource_owner_id) { '1234567890uuid' }
