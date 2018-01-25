@@ -24,10 +24,14 @@ module Frodo
         OpenStruct.new(
           'id' => nil,
           'type' => 'client_applications',
-          'privileges' => acl.dig('data', 'attributes', 'privileges'),
+          'privileges' => privileges,
           'name' => acl.dig('data', 'attributes', 'client_application')
         )
       end
+    end
+
+    def privileges
+      acl.dig('data', 'attributes', 'privileges').map(&:upcase)
     end
 
     def user(user_object)
@@ -35,7 +39,7 @@ module Frodo
         .merge(
           'id' => user_object['id'],
           'type' => 'users',
-          'privileges' => acl.dig('data', 'attributes', 'privileges'),
+          'privileges' => privileges,
           'name' => client_application.name
         )).freeze
     end
