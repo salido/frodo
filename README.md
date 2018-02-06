@@ -22,17 +22,37 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Pundit Integration
+Frodo's authorization system of choice is Pundit.  As such, you get a `FrodoPolicy` for free.  Just make your `ApplicationPolicy` inherit from it:
 
-## Development
+```
+  ApplicationPolicy < Frodo::Pundit::FrodoPolicy
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+`FrodoPolicy` gives the inheriting policy access to these methods:
+* `initialize`
+* `has_privilege?`
+* `salido_pos?`
+* `owner?`
+* `dredd?`
+* `client_application_name`
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### FrodoHelpers
+
+`include Helpers:: GeneralHelpers`
+
+Including this line puts the following methods in scope:
+* `acl` - Parsed Access Control List (ACL) from Gandalf
+* `current_application` - The application associated with the token used to retrieve the ACL from Gandalf
+* `current_user` - The user (if any) associated with the token used to retrieve the ACL from Gandalf
+
+## Grape Integration
+1. Create a new initializer with this line or add to a current initializer: `Grape::API.extend Frodo::Extension`
+2. Then add this to your API class `use Frodo::Federate`
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/frodo. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/salido/frodo. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
