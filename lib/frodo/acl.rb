@@ -7,7 +7,6 @@ module Frodo
     end
 
     def acl # rubocop:disable Metrics/MethodLength
-      return if dredd?
       gandalf_acl if good_token?
     rescue Errno::ECONNREFUSED => e
       raise Frodo::Errors::BadUrlError.new(e.message)
@@ -25,7 +24,7 @@ module Frodo
 
     def initialize(token, resource = nil)
       unless token.present?
-        raise Frodo::Errors::MissingTokenError.new unless dredd?
+        raise Frodo::Errors::MissingTokenError.new
       end
       @resource = resource
       @token = token.to_s
@@ -46,10 +45,6 @@ module Frodo
     def gandalf_url
       query = "?resource=#{resource}" if resource
       ENV['GANDALF_ACL_URL'].to_s + query.to_s
-    end
-
-    def dredd?
-      ENV['DREDD'].to_i == 1
     end
   end
 end

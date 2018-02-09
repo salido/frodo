@@ -19,8 +19,6 @@ module Frodo
 
       # rubocop:disable Naming/PredicateName
       def has_privilege?(privilege, scope = nil)
-        return true if dredd?
-
         scoped_privilege = "#{scope}::#{privilege}".upcase
 
         raise Frodo::Errors::MissingPrivilegeError
@@ -38,12 +36,7 @@ module Frodo
       end
 
       def owner?
-        return true if dredd?
         frodo_user.try(:id).present? && frodo_user.id == record.try(:resource_owner_id)
-      end
-
-      def dredd?
-        ENV['DREDD'].to_i == 1
       end
     end
   end
