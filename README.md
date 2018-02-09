@@ -34,7 +34,6 @@ Frodo's authorization system of choice is Pundit.  As such, you get a `FrodoPoli
 * `has_privilege?`
 * `salido_pos?`
 * `owner?`
-* `dredd?`
 * `client_application_name`
 
 ### FrodoHelpers

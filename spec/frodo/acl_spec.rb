@@ -31,15 +31,6 @@ describe Frodo::Acl do
       end
     end
 
-    context 'dredd' do
-      before { ENV['DREDD'] = '1' }
-      after { ENV['DREDD'] = '0' }
-
-      it 'does not return anything' do
-        expect(subject).to eq(nil)
-      end
-    end
-
     context 'with valid params' do
       it 'returns the gandalf acl' do
         expect(subject['data']['type']).to eq('acls')
