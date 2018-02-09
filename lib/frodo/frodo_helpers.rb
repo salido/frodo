@@ -15,5 +15,11 @@ module Frodo
     def current_application
       @current_application ||= Frodo::User.instance(acl).client_application
     end
+
+    private
+
+    def token
+      headers['Authorization']
+    end
   end
 end
