@@ -8,9 +8,9 @@ Gandalf... gemified
 
 Add this line to your application's Gemfile:
 
-```ruby
-gem 'frodo'
-```
+  ```ruby
+  gem 'frodo'
+  ```
 
 And then execute:
 
@@ -21,6 +21,8 @@ Or install it yourself as:
     $ gem install frodo
 
 ## Usage
+
+__IMPORTANT !!__ Make sure to set the `GANDALF_ACL_URL` environment variable on your project
 
 ### Pundit Integration
 Frodo's authorization system of choice is Pundit.  As such, you get a `FrodoPolicy` for free.  Just make your `ApplicationPolicy` inherit from it:
