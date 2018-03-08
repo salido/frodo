@@ -23,9 +23,7 @@ module Frodo
     attr_reader :resource, :token
 
     def initialize(token, resource = nil)
-      unless token.present?
-        raise Frodo::Errors::MissingTokenError.new
-      end
+      raise Frodo::Errors::MissingTokenError.new unless token.present?
       @resource = resource
       @token = token.to_s
     end

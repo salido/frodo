@@ -6,7 +6,7 @@ module Frodo
       def initialize(frodo_user, record)
         @frodo_user = frodo_user
         @record = record
-        @privileges = frodo_user.privileges.map{ |p| clean_privilege(p) }.freeze
+        @privileges = frodo_user.privileges.map { |p| clean_privilege(p) }.freeze
       end
 
       private
@@ -14,7 +14,7 @@ module Frodo
       attr_reader :frodo_user, :record, :privileges
 
       def clean_privilege(priv)
-        priv.to_s.gsub(/-/,'').upcase
+        priv.to_s.delete('-').upcase
       end
 
       def client_application_name
@@ -23,8 +23,8 @@ module Frodo
 
       # rubocop:disable Naming/PredicateName
       def has_privilege?(privilege, scope = nil)
-        candidates = ["#{scope}::#{privilege}", privilege].map{ |p| clean_privilege(p) }
-        unless (privileges & candidates).count > 0
+        candidates = ["#{scope}::#{privilege}", privilege].map { |p| clean_privilege(p) }
+        unless (privileges & candidates).count.positive?
           raise Frodo::Errors::MissingPrivilegeError
             .new(privilege, scope)
         end

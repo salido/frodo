@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Frodo::Extension do
   context '#protect' do
     it 'sets auth as the resource on the description hash' do

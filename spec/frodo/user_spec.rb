@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Frodo::User do
   include_context 'shared context'
 

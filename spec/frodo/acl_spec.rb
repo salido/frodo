@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Frodo::Acl do
   include_context 'shared context'
 
