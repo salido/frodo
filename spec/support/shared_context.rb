@@ -75,13 +75,13 @@ RSpec.shared_context 'shared context' do
   let(:gandalf_acl) { user_acl }
 
   let(:action) { :get }
-  let(:url) { ENV['GANDALF_ACL_URL'] }
+  let(:url) { "#{ENV['GANDALF_URL']}/token/acl" }
   let(:headers) { gandalf_header }
   let(:status) { 200 }
   let(:body) { gandalf_acl }
 
   before do
-    ENV['GANDALF_ACL_URL'] = 'https://www.gandalf.com'
+    ENV['GANDALF_URL'] = 'https://www.gandalf.com'
     stub_request(action, url)
       .with(headers: headers)
       .to_return(status: status, body: body, headers: {})

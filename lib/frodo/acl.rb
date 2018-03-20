@@ -41,8 +41,9 @@ module Frodo
     end
 
     def gandalf_url
-      query = "?resource=#{resource}" if resource
-      ENV['GANDALF_ACL_URL'].to_s + query.to_s
+      query = '/token/acl'
+      query += "?resource=#{resource}" if resource
+      ENV['GANDALF_URL'].to_s + query.to_s
     end
   end
 end
