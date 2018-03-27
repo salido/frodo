@@ -13,6 +13,8 @@ module Frodo
 
       attr_reader :frodo_user, :record, :privileges
 
+      alias_method :user, :frodo_user
+
       def clean_privilege(priv)
         priv.to_s.delete('-').upcase
       end
