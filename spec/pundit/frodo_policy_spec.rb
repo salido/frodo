@@ -12,6 +12,10 @@ class FrodoPolicyTester < Frodo::Pundit::FrodoPolicy
   def salido_pos?
     super
   end
+
+  def salido_bridge?
+    super
+  end
 end
 
 describe FrodoPolicyTester do
@@ -48,6 +52,21 @@ describe FrodoPolicyTester do
         let(:client_app) { 'I_AM_BATMAN' }
         it 'is false' do
           expect(subject.salido_pos?).to be false
+        end
+      end
+    end
+
+    context '#salido_bridge?' do
+      context 'when the client application is the BRIDGE' do
+        let(:client_app) { 'SALIDO_BRIDGE' }
+        it 'is true' do
+          expect(subject.salido_bridge?).to be true
+        end
+      end
+      context 'when the client application is not the BRIDGE' do
+        let(:client_app) { 'I_AM_BATMAN' }
+        it 'is false' do
+          expect(subject.salido_bridge?).to be false
         end
       end
     end
@@ -148,6 +167,21 @@ describe FrodoPolicyTester do
         let(:client_app) { 'I_AM_BATMAN' }
         it 'is false' do
           expect(subject.salido_pos?).to be false
+        end
+      end
+    end
+
+    context '#salido_bridge?' do
+      context 'when the client application is the BRIDGE' do
+        let(:client_app) { 'SALIDO_BRIDGE' }
+        it 'is true' do
+          expect(subject.salido_bridge?).to be true
+        end
+      end
+      context 'when the client application is not the BRIDGE' do
+        let(:client_app) { 'I_AM_BATMAN' }
+        it 'is false' do
+          expect(subject.salido_bridge?).to be false
         end
       end
     end

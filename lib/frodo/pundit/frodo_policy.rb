@@ -39,6 +39,10 @@ module Frodo
         client_application_name == 'SALIDO_POS'
       end
 
+      def salido_bridge?
+        client_application_name == 'SALIDO_BRIDGE'
+      end
+
       def owner?
         frodo_user.try(:id).present? && frodo_user.id == record.try(:resource_owner_id)
       end
