@@ -7,7 +7,7 @@ describe Frodo::OnlineOrdererFinder do
   end
   let(:status) { 200 }
   let(:token) { 'Bearer test-token-here' }
-  let(:url) { "#{ENV['GANDALF_URL']}/organization/#{org_id}/#{online_orderer}" }
+  let(:url) { "#{ENV['GANDALF_URL']}/organizations/#{org_id}/#{online_orderer}" }
   let(:org_id) { '6940f407-06d2-480e-a52c-002ff7b28503' }
   let(:online_orderer) { 'family' }
   let(:user_id) { '6940f407-06d2-480e-a52c-002ff7b28503' }

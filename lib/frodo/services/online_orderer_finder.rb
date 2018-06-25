@@ -41,7 +41,7 @@ module Frodo
     end
 
     def url
-      "#{ENV['GANDALF_URL']}/organization/#{org_id}/#{online_orderer}"
+      "#{ENV['GANDALF_URL']}/organizations/#{org_id}/#{online_orderer}"
     end
   end
 end
