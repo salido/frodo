@@ -23,6 +23,12 @@ describe FrodoPolicyTester do
 
   subject { described_class.new(frodo_user, resource) }
   let(:resource) { OpenStruct }
+  let(:base_client_application_attributes) do
+    {
+      'name' => 'TEST_POLICY_APP',
+      'redirect_uri' => 'https://www.test_policy_app.com'
+    }
+  end
 
   describe 'when frodo_user is a user' do
     let(:frodo_user) { user }
@@ -43,13 +49,14 @@ describe FrodoPolicyTester do
 
     context '#salido_pos?' do
       context 'when the client application is the POS' do
-        let(:client_app) { 'SALIDO_POS' }
+        let(:client_application_attributes) { base_client_application_attributes.merge('name' => 'SALIDO_POS') }
         it 'is true' do
           expect(subject.salido_pos?).to be true
         end
       end
+
       context 'when the client application is not the POS' do
-        let(:client_app) { 'I_AM_BATMAN' }
+        let(:client_application_attributes) { base_client_application_attributes.merge('name' => 'I_AM_BATMAN') }
         it 'is false' do
           expect(subject.salido_pos?).to be false
         end
@@ -58,13 +65,14 @@ describe FrodoPolicyTester do
 
     context '#salido_bridge?' do
       context 'when the client application is the BRIDGE' do
-        let(:client_app) { 'SALIDO_BRIDGE' }
+        let(:client_application_attributes) { base_client_application_attributes.merge('name' => 'SALIDO_BRIDGE') }
         it 'is true' do
           expect(subject.salido_bridge?).to be true
         end
       end
+
       context 'when the client application is not the BRIDGE' do
-        let(:client_app) { 'I_AM_BATMAN' }
+        let(:client_application_attributes) { base_client_application_attributes.merge('name' => 'I_AM_BATMAN') }
         it 'is false' do
           expect(subject.salido_bridge?).to be false
         end
@@ -158,13 +166,13 @@ describe FrodoPolicyTester do
 
     context '#salido_pos?' do
       context 'when the client application is the POS' do
-        let(:client_app) { 'SALIDO_POS' }
+        let(:client_application_attributes) { base_client_application_attributes.merge('name' => 'SALIDO_POS') }
         it 'is true' do
           expect(subject.salido_pos?).to be true
         end
       end
       context 'when the client application is not the POS' do
-        let(:client_app) { 'I_AM_BATMAN' }
+        let(:client_application_attributes) { base_client_application_attributes.merge('name' => 'I_AM_BATMAN') }
         it 'is false' do
           expect(subject.salido_pos?).to be false
         end
@@ -173,13 +181,13 @@ describe FrodoPolicyTester do
 
     context '#salido_bridge?' do
       context 'when the client application is the BRIDGE' do
-        let(:client_app) { 'SALIDO_BRIDGE' }
+        let(:client_application_attributes) { base_client_application_attributes.merge('name' => 'SALIDO_BRIDGE') }
         it 'is true' do
           expect(subject.salido_bridge?).to be true
         end
       end
       context 'when the client application is not the BRIDGE' do
-        let(:client_app) { 'I_AM_BATMAN' }
+        let(:client_application_attributes) { base_client_application_attributes.merge('name' => 'I_AM_BATMAN') }
         it 'is false' do
           expect(subject.salido_bridge?).to be false
         end
