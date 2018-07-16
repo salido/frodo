@@ -7,13 +7,19 @@ module Frodo
     end
 
     def current_user
-      @frodo_user ||= Frodo::User
-                      .instance(acl)
-                      .frodo_user # NOTE: "User" can be a Client Application or a User
+      @current_user ||= Frodo::User
+                        .instance(acl)
+                        .frodo_user # NOTE: "User" can be a Client Application or a User
     end
 
-    def current_application
-      @current_application ||= Frodo::User.instance(acl).client_application
+    def current_application_name
+      @current_application_name ||= begin
+        if current_user.type == 'users'
+          current_user.client_application.name
+        else
+          current_user.name
+        end
+      end
     end
 
     private

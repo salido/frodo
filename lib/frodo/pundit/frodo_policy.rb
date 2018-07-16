@@ -13,14 +13,20 @@ module Frodo
 
       attr_reader :frodo_user, :record, :privileges
 
-      alias_method :user, :frodo_user
+      alias user frodo_user
 
       def clean_privilege(priv)
         priv.to_s.delete('-').upcase
       end
 
       def client_application_name
-        @client_application_name ||= frodo_user.name
+        @client_application_name ||= begin
+          if frodo_user.type == 'users'
+            frodo_user.client_application.name
+          else
+            frodo_user.name
+          end
+        end
       end
 
       # rubocop:disable Naming/PredicateName

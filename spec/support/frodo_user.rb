@@ -10,9 +10,15 @@ RSpec.shared_context 'frodo_user' do
   end
 
   let(:resource_owner_id) { '1234567890uuid' }
-  let(:client_app) { 'TEST_POLICY_APP' }
+  let(:client_application_id) { '0987654321uuid' }
   let(:gandalf_privileges) { [] }
   let(:groups) { [] }
+  let(:client_application_attributes) do
+    {
+      'name' => 'TEST_POLICY_APP',
+      'redirect_uri' => 'https://www.test_policy_app.com'
+    }
+  end
   let(:user_attributes) do
     {
       'disabled_by_salido' => false,
@@ -33,14 +39,25 @@ RSpec.shared_context 'frodo_user' do
         'id' => 0,
         'type' => 'acls',
         'attributes' => {
-          'client_application' => client_app,
           'privileges' => gandalf_privileges
         },
         'relationships' => {
+          'client_application' => {
+            'data' => {
+              'id' => client_application_id,
+              'type' => 'clientapplications'
+            }
+          },
           'groups' => { 'data' => groups }
         }
       },
-      'included' => []
+      'included' => [
+        {
+          'id' => client_application_id,
+          'type' => 'client_applications',
+          'attributes' => client_application_attributes
+        }
+      ]
     }
   end
 
@@ -51,10 +68,15 @@ RSpec.shared_context 'frodo_user' do
         'id' => 0,
         'type' => 'acls',
         'attributes' => {
-          'client_application' => client_app,
           'privileges' => gandalf_privileges
         },
         'relationships' => {
+          'client_application' => {
+            'data' => {
+              'id' => client_application_id,
+              'type' => 'clientapplications'
+            }
+          },
           'user' => {
             'data' => {
               'id' => resource_owner_id,
@@ -65,6 +87,11 @@ RSpec.shared_context 'frodo_user' do
         }
       },
       'included' => [
+        {
+          'id' => client_application_id,
+          'type' => 'client_applications',
+          'attributes' => client_application_attributes
+        },
         {
           'id' => resource_owner_id,
           'type' => 'users',

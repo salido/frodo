@@ -13,7 +13,14 @@ RSpec.shared_context 'shared context' do
 
   let(:gandalf_user_id) { SecureRandom.uuid }
 
-  let(:client_application_name) { 'TESTAPP10' }
+  let(:groups) { [] }
+  let(:client_application_id) { '0987654321uuid' }
+  let(:client_application_attributes) do
+    {
+      'name' => 'TEST_POLICY_APP',
+      'redirect_uri' => 'https://www.test_policy_app.com'
+    }
+  end
 
   let(:client_application_acl) do
     JSON.unparse(
@@ -22,14 +29,25 @@ RSpec.shared_context 'shared context' do
         'id' => 0,
         'type' => 'acls',
         'attributes' => {
-          'client_application' => client_application_name,
           'privileges' => gandalf_privileges
         },
         'relationships' => {
-          'groups' => { 'data' => [] }
+          'client_application' => {
+            'data' => {
+              'id' => client_application_id,
+              'type' => 'clientapplications'
+            }
+          },
+          'groups' => { 'data' => groups }
         }
       },
-      'included' => []
+      'included' => [
+        {
+          'id' => client_application_id,
+          'type' => 'client_applications',
+          'attributes' => client_application_attributes
+        }
+      ]
     )
   end
 
@@ -40,10 +58,15 @@ RSpec.shared_context 'shared context' do
         'id' => 0,
         'type' =>  'acls',
         'attributes' => {
-          'client_application' =>  client_application_name,
           'privileges' => gandalf_privileges
         },
         'relationships' => {
+          'client_application' => {
+            'data' => {
+              'id' => client_application_id,
+              'type' => 'clientapplications'
+            }
+          },
           'user' => {
             'data' => {
               'id' =>  gandalf_user_id,
@@ -54,6 +77,11 @@ RSpec.shared_context 'shared context' do
         }
       },
       'included' => [
+        {
+          'id' => client_application_id,
+          'type' => 'client_applications',
+          'attributes' => client_application_attributes
+        },
         {
           'id' =>  gandalf_user_id,
           'type' => 'users',
