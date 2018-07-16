@@ -12,8 +12,14 @@ module Frodo
                       .frodo_user # NOTE: "User" can be a Client Application or a User
     end
 
-    def current_application
-      @current_application ||= Frodo::User.instance(acl).client_application
+    def current_application_name
+      @current_application_name ||= begin
+        if frodo_user.type == 'users'
+          frodo_user.client_application.name
+        else
+          frodo_user.name
+        end
+      end
     end
 
     private
