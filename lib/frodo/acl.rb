@@ -6,7 +6,7 @@ module Frodo
       new(token, resource)
     end
 
-    def acl # rubocop:disable Metrics/MethodLength
+    def acl
       gandalf_acl if good_token?
     rescue Errno::ECONNREFUSED => e
       raise Frodo::Errors::BadUrlError.new(e.message)
