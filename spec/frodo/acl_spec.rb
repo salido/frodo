@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Frodo::Acl do
-  include_context 'shared context'
+  include_context 'shared user acl context'
 
   context '#acl' do
     subject { described_class.new(token).acl }
