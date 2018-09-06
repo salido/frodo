@@ -7,7 +7,10 @@ module Frodo
     end
 
     def data
-      gandalf_profile if valid?
+      @data ||= begin
+        raise Frodo::Errors::ProfileError.new(gandalf_profile['error']) unless valid?
+        gandalf_profile
+      end
     end
 
     private
@@ -40,8 +43,7 @@ module Frodo
     end
 
     def valid?
-      raise Frodo::Errors::ProfileError.new(gandalf_profile['error']) if gandalf_profile.key? 'error'
-      true
+      !(gandalf_profile.key? 'error')
     end
   end
 end

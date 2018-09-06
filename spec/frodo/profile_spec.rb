@@ -19,7 +19,7 @@ describe Frodo::Profile do
   end
 
   context '#profile' do
-    subject { described_class.new(location: location, token: token).data }
+    subject { described_class.instance(location: location, token: token).data }
 
     context 'errors' do
       context "when there's a JSON parsing error" do
