@@ -2,8 +2,14 @@
 
 module Frodo
   class Profile
+    def self.get(id:, token:, version: 'latest')
+      gandalf_url = ENV['GANDALF_URL'].to_s + "/profiles/#{id}/#{version}"
+      new(gandalf_url: gandalf_url, token: token)
+    end
+
     def self.instance(location:, token:)
-      new(location: location, token: token)
+      gandalf_url = ENV['GANDALF_URL'].to_s + "/location/#{location.id}/profile"
+      new(gandalf_url: gandalf_url, token: token)
     end
 
     def data
@@ -15,10 +21,10 @@ module Frodo
 
     private
 
-    attr_reader :location, :token
+    attr_reader :gandalf_url, :token
 
-    def initialize(location:, token:)
-      @location = location
+    def initialize(gandalf_url:, token:)
+      @gandalf_url = gandalf_url
       @token = token
     end
 
@@ -32,10 +38,6 @@ module Frodo
       JSON.parse(profile_response.body)
     rescue JSON::ParserError => e
       raise Frodo::Errors::JsonError.new(e.message)
-    end
-
-    def gandalf_url
-      ENV['GANDALF_URL'].to_s + "/location/#{location.id}/profile"
     end
 
     def headers
