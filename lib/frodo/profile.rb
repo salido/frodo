@@ -2,14 +2,30 @@
 
 module Frodo
   class Profile
-    def self.get(id:, token:, version: 'latest')
+    def self.get(id:, version: 'latest')
       gandalf_url = ENV['GANDALF_URL'].to_s + "/profiles/#{id}/#{version}"
-      new(gandalf_url: gandalf_url, token: token)
+      new(gandalf_url: gandalf_url)
     end
 
-    def self.instance(location:, token:)
+    def self.instance(location:)
       gandalf_url = ENV['GANDALF_URL'].to_s + "/location/#{location.id}/profile"
-      new(gandalf_url: gandalf_url, token: token)
+      new(gandalf_url: gandalf_url)
+    end
+
+    def id
+      data.dig('data', 'id')
+    end
+
+    def version
+      data.dig('data', 'attributes', 'version')
+    end
+
+    def configs
+      data.dig('data', 'attributes', 'data', 'configs')
+    end
+
+    def client_applications
+      data.dig('data', 'attributes', 'data', 'configs')
     end
 
     def data
@@ -21,15 +37,14 @@ module Frodo
 
     private
 
-    attr_reader :gandalf_url, :token
-
-    def initialize(gandalf_url:, token:)
+    def initialize(gandalf_url:)
       @gandalf_url = gandalf_url
-      @token = token
     end
 
+    attr_reader :gandalf_url
+
     def profile_response
-      @profile_response ||= HTTParty.get(gandalf_url, headers: headers)
+      @profile_response ||= HTTParty.get(gandalf_url)
     rescue Errno::ECONNREFUSED => e
       raise Frodo::Errors::BadUrlError.new(e.message)
     end
@@ -38,10 +53,6 @@ module Frodo
       JSON.parse(profile_response.body)
     rescue JSON::ParserError => e
       raise Frodo::Errors::JsonError.new(e.message)
-    end
-
-    def headers
-      { Authorization: "Bearer #{token}" }
     end
 
     def valid?

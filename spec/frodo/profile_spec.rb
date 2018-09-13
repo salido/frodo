@@ -9,19 +9,14 @@ describe Frodo::Profile do
 
   let(:token) { 'Foobarbaz' }
 
-  let(:headers) do
-    { Authorization: "Bearer #{token}" }
-  end
-
   context '.get' do
     before do
       ENV['GANDALF_URL'] = 'https://www.gandalf.com'
       stub_request(:get, ENV['GANDALF_URL'] + '/profiles/12345/2')
-        .with(headers: headers)
         .to_return(status: status, body: body, headers: {})
     end
 
-    subject { described_class.get(id: id, token: token, version: 2).data }
+    subject { described_class.get(id: id, version: 2).data }
 
     context 'errors' do
       context "when there's a JSON parsing error" do
@@ -30,17 +25,6 @@ describe Frodo::Profile do
 
         it 'returns a JsonError' do
           expect { subject }.to raise_error(Frodo::Errors::JsonError)
-        end
-      end
-
-      context 'all other errors' do
-        let(:status) { 401 }
-        let(:body) do
-          JSON.unparse(error: 'The access token expired')
-        end
-
-        it 'returns an ProfileError' do
-          expect { subject }.to raise_error(Frodo::Errors::ProfileError)
         end
       end
     end
@@ -89,11 +73,10 @@ describe Frodo::Profile do
     before do
       ENV['GANDALF_URL'] = 'https://www.gandalf.com'
       stub_request(:get, ENV['GANDALF_URL'] + '/location/asdf/profile')
-        .with(headers: headers)
         .to_return(status: status, body: body, headers: {})
     end
 
-    subject { described_class.instance(location: location, token: token).data }
+    subject { described_class.instance(location: location).data }
 
     context 'errors' do
       context "when there's a JSON parsing error" do
@@ -155,5 +138,12 @@ describe Frodo::Profile do
           .to eq('value' => '1', 'value_type' => 'int')
       end
     end
+  end
+
+  describe described_class.new(gandalf_url: 'test') do
+    it { is_expected.to respond_to :id }
+    it { is_expected.to respond_to :version }
+    it { is_expected.to respond_to :configs }
+    it { is_expected.to respond_to :client_applications }
   end
 end
