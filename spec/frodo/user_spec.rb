@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Frodo::User do
-  include_context 'shared context'
+  include_context 'shared user acl context'
 
   context '#frodo_user' do
     subject { described_class.instance(JSON.parse(acl)).frodo_user }

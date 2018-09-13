@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_context 'shared context' do
+RSpec.shared_context 'shared user acl context' do
   let(:token) { 'Bearer testToken123' }
 
   let(:gandalf_header) do
