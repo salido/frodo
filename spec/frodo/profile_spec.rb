@@ -16,12 +16,11 @@ describe Frodo::Profile do
   context '.get' do
     before do
       ENV['GANDALF_URL'] = 'https://www.gandalf.com'
-      stub_request(:get, ENV['GANDALF_URL'] + '/profiles/12345/2')
-        .with(headers: headers)
+      stub_request(:get, ENV['GANDALF_URL'] + '/profiles/12345?version=2')
         .to_return(status: status, body: body, headers: {})
     end
 
-    subject { described_class.get(id: id, token: token, version: 2).data }
+    subject { described_class.get(id: id, version: 2).data }
 
     context 'errors' do
       context "when there's a JSON parsing error" do
@@ -155,5 +154,12 @@ describe Frodo::Profile do
           .to eq('value' => '1', 'value_type' => 'int')
       end
     end
+  end
+
+  describe described_class.new(gandalf_url: 'test') do
+    it { is_expected.to respond_to :id }
+    it { is_expected.to respond_to :version }
+    it { is_expected.to respond_to :configs }
+    it { is_expected.to respond_to :client_applications }
   end
 end

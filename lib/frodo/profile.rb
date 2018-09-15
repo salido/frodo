@@ -2,14 +2,30 @@
 
 module Frodo
   class Profile
-    def self.get(id:, token:, version: 'latest')
-      gandalf_url = ENV['GANDALF_URL'].to_s + "/profiles/#{id}/#{version}"
+    def self.get(id:, version: 'latest')
+      gandalf_url = ENV['GANDALF_URL'].to_s + "/profiles/#{id}?version=#{version}"
+      new(gandalf_url: gandalf_url)
+    end
+
+    def self.instance(location:, token: nil)
+      gandalf_url = ENV['GANDALF_URL'].to_s + "/location/#{location.id}/profile"
       new(gandalf_url: gandalf_url, token: token)
     end
 
-    def self.instance(location:, token:)
-      gandalf_url = ENV['GANDALF_URL'].to_s + "/location/#{location.id}/profile"
-      new(gandalf_url: gandalf_url, token: token)
+    def id
+      data.dig('data', 'id')
+    end
+
+    def version
+      data.dig('data', 'attributes', 'version')
+    end
+
+    def configs
+      data.dig('data', 'attributes', 'data', 'configs')
+    end
+
+    def client_applications
+      data.dig('data', 'attributes', 'data', 'configs')
     end
 
     def data
@@ -23,7 +39,7 @@ module Frodo
 
     attr_reader :gandalf_url, :token
 
-    def initialize(gandalf_url:, token:)
+    def initialize(gandalf_url:, token: nil)
       @gandalf_url = gandalf_url
       @token = token
     end
@@ -41,7 +57,7 @@ module Frodo
     end
 
     def headers
-      { Authorization: "Bearer #{token}" }
+      { Authorization: "Bearer #{token}" } if token.present?
     end
 
     def valid?
