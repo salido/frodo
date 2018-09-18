@@ -25,7 +25,7 @@ module Frodo
     end
 
     def client_applications
-      data.dig('data', 'attributes', 'data', 'configs')
+      data.dig('data', 'attributes', 'data', 'client_applications')
     end
 
     def data
