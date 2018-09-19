@@ -8,7 +8,7 @@ module Frodo
     end
 
     def self.instance(location:, token: nil)
-      gandalf_url = ENV['GANDALF_URL'].to_s + "/location/#{location.id}/profile"
+      gandalf_url = ENV['GANDALF_URL'].to_s + "/locations/#{location.id}/profile"
       new(gandalf_url: gandalf_url, token: token)
     end
 
@@ -57,7 +57,7 @@ module Frodo
     end
 
     def headers
-      { Authorization: "Bearer #{token}" } if token.present?
+      { Authorization: token } if token.present?
     end
 
     def valid?
