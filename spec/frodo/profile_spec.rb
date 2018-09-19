@@ -10,7 +10,7 @@ describe Frodo::Profile do
   let(:token) { 'Foobarbaz' }
 
   let(:headers) do
-    { Authorization: "Bearer #{token}" }
+    { Authorization: token }
   end
 
   let(:good_body_values) do
@@ -100,7 +100,7 @@ describe Frodo::Profile do
   context '.instance' do
     before do
       ENV['GANDALF_URL'] = 'https://www.gandalf.com'
-      stub_request(:get, ENV['GANDALF_URL'] + '/location/asdf/profile')
+      stub_request(:get, ENV['GANDALF_URL'] + '/locations/asdf/profile')
         .with(headers: headers)
         .to_return(status: status, body: body, headers: {})
     end
