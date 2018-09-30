@@ -9,11 +9,12 @@ module Frodo
         @privileges = frodo_user.privileges.map { |p| clean_privilege(p) }.freeze
       end
 
+      attr_reader :frodo_user
+      alias user frodo_user
+
       private
 
-      attr_reader :frodo_user, :record, :privileges
-
-      alias user frodo_user
+      attr_reader :record, :privileges
 
       def clean_privilege(priv)
         priv.to_s.delete('-').upcase
