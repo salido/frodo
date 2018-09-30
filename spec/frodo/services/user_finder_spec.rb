@@ -42,7 +42,7 @@ describe Frodo::UserFinder do
         'included' => []
       }
     end
-    it { is_expected.to eq OpenStruct.new(user['data']) }
+    it { is_expected.to be_a Frodo::User::FORMAT }
   end
 
   context 'user not found' do

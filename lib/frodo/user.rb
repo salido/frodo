@@ -2,6 +2,8 @@
 
 module Frodo
   class User
+    FORMAT = Struct.new(:id, :type, :name, :platform_id, :privileges, :client_application)
+
     def self.instance(acl)
       @instances ||= {}
       @instances[acl] ||= new(acl)
@@ -23,14 +25,20 @@ module Frodo
     end
 
     def client_application
-      @client_application ||= begin
-        OpenStruct.new(client_app_object['attributes']
-          .merge(
-            'id' => client_app_object['id'],
-            'type' => 'client_applications',
-            'privileges' => privileges
-          )).freeze
-      end
+      # "attributes": {
+      #           "name": "devo-khan",
+      #           "uid": "71e427fa277025f924503b033ae26e7d5a3fb1ba8e722eb55cd3de49123513e3",
+      #           "redirect_uri": "https://localhost:8080",
+      #           "created_at": "2018-09-26T20:25:19Z",
+      #           "updated_at": "2018-09-26T20:25:19Z"
+      @client_application ||= FORMAT.new(
+        client_app_object['id'],
+        'client_applications',
+        client_app_object['attributes']['name'],
+        nil,
+        privileges,
+        client_app_object
+      )
     end
 
     def privileges
@@ -38,13 +46,20 @@ module Frodo
     end
 
     def user
-      OpenStruct.new(user_object['attributes']
-        .merge(
-          'id' => user_object['id'],
-          'type' => 'users',
-          'privileges' => privileges,
-          'client_application' => client_application
-        )).freeze
+      # "attributes": {
+      #   "platform_id": null,
+      #   "first_name": "devo",
+      #   "last_name": "regmi",
+      #   "password": null,
+      #   "email": "devo.regmi@salido.com"
+      FORMAT.new(
+        user_object['id'],
+        'users',
+        "#{user_object['attributes']['first_name']} #{user_object['attributes']['last_name']}",
+        user_object['attributes']['platform_id'],
+        privileges,
+        client_application
+      )
     end
 
     def user_object

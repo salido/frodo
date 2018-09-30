@@ -9,7 +9,7 @@ module Frodo
     def run
       raise Errors::NotFoundError.new(error) if response.code == 404
       raise StandardError.new(error) unless response.code == 200
-      OpenStruct.new(user)
+      user
     end
 
     private
@@ -31,9 +31,18 @@ module Frodo
       JSON.parse(response.body)
     end
 
+    # rubocop:disable Metrics/AbcSize
     def user
-      body['data']
+      Frodo::User::FORMAT.new(
+        body['data']['id'],
+        'users',
+        "#{body['data']['attributes']['first_name']} #{body['data']['attributes']['last_name']}",
+        body['data']['attributes']['platform_id'],
+        'privileges' => [],
+        'client_application' => nil
+      )
     end
+    # rubocop:enable Metrics/AbcSize
 
     def error
       body['error']
