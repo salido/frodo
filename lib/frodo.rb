@@ -15,6 +15,7 @@ require 'frodo/errors/not_found_error'
 
 require 'frodo/pundit/frodo_policy'
 require 'frodo/services/user_finder.rb'
+require 'frodo/services/online_orderer_finder.rb'
 require 'frodo/acl'
 require 'frodo/extension'
 require 'frodo/federate'
